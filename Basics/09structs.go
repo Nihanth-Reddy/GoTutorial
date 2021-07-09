@@ -40,6 +40,17 @@ func main() {
 		toe.courses = append(toe.courses, "C")
 	}
 
+	// Embeded Structs
+	var p = Android{&Person{"Nihanth Reddy", 25, "Male"}, "Oreo"}
+	//p := new(Android)
+	p.Name = "Nihanth Kottam"
+	//p.Age = 25
+	//p.Gender = "Male"
+	//p.Model = "Lolipop"
+	p.Talk()
+	//fmt.Printf("%T\n", p)
+	fmt.Println(*p.Person)
+
 }
 
 func contains(ss []string, s string) bool {
@@ -49,4 +60,19 @@ func contains(ss []string, s string) bool {
 		}
 	}
 	return false
+}
+
+type Person struct {
+	Name   string
+	Age    int
+	Gender string
+}
+
+func (p *Person) Talk() {
+	fmt.Println("Hi, my name is", p.Name)
+}
+
+type Android struct {
+	*Person
+	Model string
 }

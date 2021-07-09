@@ -19,7 +19,7 @@ func main() {
 
 }
 
-// Closure functions -> function returning function
+// Closure functions -> function in/returning function
 func oddNumberGenerator() func() uint {
 	i := uint(1)
 	return func() (num uint) {
