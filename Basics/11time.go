@@ -2,8 +2,19 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"strings"
 	"time"
 )
+
+var zoneDirs = []string{
+	"/usr/share/zoneinfo/",
+	"/usr/share/lib/zoneinfo/",
+	"/usr/lib/locale/TZ/",
+}
+var zoneDir string
+
+var Timezones []string
 
 func main() {
 	// Printing local time
@@ -43,4 +54,27 @@ func DateStringParser(utc string) time.Time {
 		panic(err)
 	}
 	return t
+}
+
+func printTimezones() {
+	for _, zoneDir = range zoneDirs {
+		ReadFile("")
+	}
+	for i, zone := range Timezones {
+		fmt.Println(i, zone)
+	}
+}
+
+func ReadFile(path string) {
+	files, _ := ioutil.ReadDir(zoneDir + path)
+	for _, f := range files {
+		if f.Name() != strings.ToUpper(f.Name()[:1])+f.Name()[1:] {
+			continue
+		}
+		if f.IsDir() {
+			ReadFile(path + "/" + f.Name())
+		} else {
+			Timezones = append(Timezones, (path + "/" + f.Name())[1:])
+		}
+	}
 }
